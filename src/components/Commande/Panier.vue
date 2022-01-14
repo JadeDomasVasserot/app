@@ -19,9 +19,9 @@
       <br>
       <button @click="suppr(article.IdProductInBasket)">Supprimer</button>
    </div>
-   <router-link :to="{name: 'CheckOut'}">
-      <button @click="valider()">Valider la commande</button>
-   </router-link>
+   
+      <button @click="valider(basket[0],user)">Valider la commande</button>
+   
    <router-link :to="{name: 'Collection'}">
    <button>Continuer les achats</button>
    </router-link>
@@ -39,7 +39,7 @@ export default {
   data () {
     return {
       basket: axios.get('http://127.0.0.1:8000/returnpanier/4').then(rep => this.basket = rep.data),
-       user : axios.get('http://127.0.0.1:8000/api/users/4').then(rep => this.user = rep.data),
+      user:  axios.get('http://127.0.0.1:8000/api/users/4').then(rep => rep.data)
 
     }
   },
@@ -47,25 +47,30 @@ export default {
     console(x) {
       console.log(x)
     },
-    async valider(){
-      basket[0].foreach()
-      axios.post('http://localhost:8000/api/commande',{
-           "date": Date.now,
-            "number": 10000+id,
-            "amountoutmargin": 100,
+    async valider(basket,user){
+      /*var total = 0
+      console.log(Date.now())
+      basket.forEach(element => {total += element.productUnitPrice*element.quantity})
+      console.log('http://localhost:8000/commande/'+user.id)
+      console.log(total)
+      /*await axios.post('http://localhost:8000/api/commandes',{
+            "number": Math. random()%100000,
+            "amountoutmargin": total,
             "commargin": user.margin,
-            "totalamount": 90,
+            "totalamount": total*user.margin/100,
             "user": user.id,
-           
-            
-            })
-        .then(function (response) {
-                console.log(response);
-        })
-        .catch(function (error) {
-            console.log(error);
-        
-      })
+            })*/
+        if (basket) {
+          await axios.get('http://localhost:8000/commande/'+user.id)
+          .then(function (response) {
+                  console.log(response);
+                  location.assign('../#/CheckOut')
+          })
+          .catch(function (error) {
+              console.log(error);
+          
+          })
+        }
     },
     async suppr(id) {
       await axios.delete('http://localhost:8000/api/products_in_baskets/'+id)

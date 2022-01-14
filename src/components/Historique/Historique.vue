@@ -1,13 +1,13 @@
 <template>
   <div id="Historique">
     <Nav></Nav>
-    <h2>Historique des commandes</h2>
+    <h2>Historique des commandes</h2><button @click="console(order)">Console</button>
     
     <div class="commande" v-for="ord in order[0]" @click="selectOrd(ord.id)" :key="ord.id">
        <router-link :to="{name: 'HistoriqueDetail', params: {selectOrderID: ord.id }}">
       <p class="number">
         <span>N° {{ord.number}}</span>
-        <span>le {{ord.date}}</span>
+        <span>le {{ord.date.date}}</span>
       </p>
       <p class="total">TOTAL : {{ord.totalamount}} €</p>
       </router-link>
@@ -25,13 +25,16 @@ export default {
   name: 'Historique',
   data () {
     return {
-        order: axios.get('http://127.0.0.1:8000/return/commande/1').then(rep => this.order = rep.data),
+        order: axios.get('http://127.0.0.1:8000/return/commande/4').then(rep => this.order = rep.data),
         //récupère commande de user /commande/{user.id}
     }
   },
    methods:{
     selectOrd (id){
       this.selectOrderID = id;
+    },
+    console(x){
+      console.log(x)
     }
     
   },

@@ -38,7 +38,6 @@ export default {
   name: "Connexion",
   data() {
     return {
-      name:  submitEvent.target.elements.username.value,
     };
   },
   methods: {
@@ -50,7 +49,9 @@ export default {
             "/" +
             submitEvent.target.elements.password.value
         );
-        console.log(response);
+        
+        axios.defaults.headers.common['Authorization'] = response.data.Id
+        console.log(response.data.Id);
         this.$router.push("Collection");
 
       } catch (error) {

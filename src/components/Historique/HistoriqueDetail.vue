@@ -6,11 +6,19 @@
       </router-link>
         <h2>Commande n°{{order.number}} </h2>
         <p>le {{order.date}} </p>
-        <p></p>Prix conseillé : {{order.amountoutmargin}} €</p>
+        <p>Prix conseillé : {{order.amountoutmargin}} € </p>
          <p>Marge commerciale : {{order.commargin}}€ ({{order.commargin}}*{{order.amountoutmargin}}/100 %)</p>
          <p>Prix  : {{order.totalamount}}€</p>
-        
-  </div>
+        <div  v-for="article in order[0]" :key="article.productId">
+          <img :src="article.productPicture" alt="noimage" style="width: 100px">
+          <h3 class="text">{{article.productName}}</h3>
+          <p class="text">Ref : {{article.productReference}}</p>
+          <p class="text">Pointure : {{article.shoesSize}}</p>
+          <p class="text">Largeur : {{article.size}}</p>
+          <p class="text">{{article.productUnitPrice}} €€</p>
+          <p>Quantité : {{article.quantity}}</p> 
+        </div>
+      </div>
 </template>
 
 <script>
@@ -24,7 +32,7 @@ export default {
   props: ['selectOrderID'],
   data () {
     return {
-       order: axios.get('http://127.0.0.1:8000/api/commandes/'+ this.selectOrderID).then(rep => this.order = rep.data)
+       order: axios.get('http://127.0.0.1:8000/return/produit/commande/'+ this.selectOrderID).then(rep => this.order = rep.data)
     }
   },
   computed: {    

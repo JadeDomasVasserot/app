@@ -1,7 +1,7 @@
 <template>
   <div class="Nav">
     <div class="displayUser">
-      {{user.name}}  {{user.lastName}}
+    {{user.name}} {{user.lastName}}
     </div>
     <router-link :to="{name: 'Menu'}">
          <img class="hamburger" src="@/assets/icons/hamburger.jpg" alt="no img">
@@ -11,16 +11,24 @@
 
 <script>
 import axios from "axios"
-axios.defaults.withCredentials = true
+//axios.defaults.withCredentials = true
 export default {
   name: 'Nav',
   data () {
     return {
-       user : axios.get('http://127.0.0.1:8000/api/users/1').then(rep => this.user = rep.data),
-       Currentuser: axios.get('http://127.0.0.1:8000/id/session').then(rep => this.Currentuser = rep.data),
+       /*Currentuser: null,
+       users: null,*/
+       user:  axios.get('http://127.0.0.1:8000/api/users/4').then(rep =>this.user =    rep.data)
     }
   },
-  
+   /*async mounted(){
+     
+      this.Currentuser = await axios.get('http://127.0.0.1:8000/id/session').then(rep => rep.data);
+      this.users = await axios.get('http://127.0.0.1:8000/api/users/'+ this.Currentuser).then(rep => rep.data);
+      
+      
+  },*/
+
 }
 </script>
 
@@ -46,7 +54,7 @@ a {
 }
 
 .displayUser{
-  font-size: 4.5em;
+  font-size: 2em;
 }
 
 .hamburger{

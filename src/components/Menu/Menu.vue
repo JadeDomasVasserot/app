@@ -35,8 +35,7 @@ export default {
   name: 'Menu',
   data () {
     return {
-       user : axios.get('http://127.0.0.1:8000/api/users/4').then(rep => this.user = rep.data),
-       currentUser: axios.get('http://127.0.0.1:8000/id/session').then(rep => this.currentUser = rep.data),
+      user:  axios.get('http://127.0.0.1:8000/api/users/4').then(rep =>this.user = rep.data)
     }
   }
 }

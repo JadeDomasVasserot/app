@@ -4,12 +4,12 @@
       <router-link :to="{name: 'Historique'}">
       <button class="back">Retour</button>
       </router-link>
-        <h2>Commande n°{{order.number}} </h2>
-        <p>le {{order.date}} </p>
-        <p>Prix conseillé : {{order.amountoutmargin}} € </p>
-         <p>Marge commerciale : {{order.commargin}}€ ({{order.commargin}}*{{order.amountoutmargin}}/100 %)</p>
-         <p>Prix  : {{order.totalamount}}€</p>
-        <div  v-for="article in order[0]" :key="article.productId">
+        <h2>Commande n°{{order[0].number}} </h2>
+        <p>le {{order[0].date.date}} </p>
+        <p>Prix conseillé : {{order[0].amountoutmargin}} € </p>
+         <p>Marge commerciale : {{order[0].commargin}}% ({{order[0].commargin*order[0].amountoutmargin/100}} €)</p>
+         <p>Prix  : {{order[0].totalamount}}€</p>
+        <div  v-for="article in order[0].produit" :key="article.productId">
           <img :src="article.productPicture" alt="noimage" style="width: 100px">
           <h3 class="text">{{article.productName}}</h3>
           <p class="text">Ref : {{article.productReference}}</p>

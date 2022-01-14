@@ -1,13 +1,29 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png">
-    <router-view/>
+      <router-view/>
+
   </div>
 </template>
 
 <script>
+import axios from 'axios'
 export default {
-  name: 'App'
+ 
+  name: 'App',
+  data () {
+  return {
+   
+    }
+},
+  methods:{
+    getData(){
+      
+    axios.get('http://127.0.0.1:8000/api/categories').then(rep => this.info = rep.data)
+    console.log(axios.get('http://127.0.0.1:8000/api/categories').then(rep => this.info = rep.data))
+    }
+  }
+
+
 }
 </script>
 
